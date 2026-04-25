@@ -6,9 +6,9 @@ WORKDIR /app
 COPY . /app
 
 
-RUN sudo apt-get update \
-    && sudo apt-get upgrade \
-    && sudo apt-get install -y gcc default-libmysqlclient-dev pkg-config \
+RUN apt-get update \
+    && apt-get upgrade \
+    && apt-get install -y gcc default-libmysqlclient-dev pkg-config \
     && rm -rf /var/lib/apt/lists/*
 
 
