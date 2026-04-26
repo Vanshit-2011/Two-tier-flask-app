@@ -1,0 +1,40 @@
+version: "3.8"
+
+services:
+  mysql:
+    image: mysql
+    container_name: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: devops
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: admin
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql-data:/var/lib/mysql
+    networks:
+      - vanshit
+    restart: always
+
+  flaskapp:
+    image: vanshit967/flask-app
+    container_name: flask-app-two-tier
+    environment:
+      MYSQL_HOST: mysql
+      MYSQL_DB: devops
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: admin
+    depends_on:
+      - mysql
+    restart: always
+    ports:
+      - "5000:5000"
+    networks:
+      - vanshit
+
+networks:
+  vanshit:
+
+volumes:
+  mysql-data:
